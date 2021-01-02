@@ -1,0 +1,18 @@
+[Default Applications]
+inode/directory=vifm.desktop
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
+application.pdf=org.pwmt.zathura-pdf-mupdf.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-EOCXS0.desktop
+message/rfc822=userapp-Thunderbird-EOCXS0.desktop
+text/plain=vim.desktop
+x-scheme-handler/msteams=teams.desktop
+text/html=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
+video/x-matroska=mpv.desktop
+
+[Added Associations]
+x-scheme-handler/mailto=userapp-Thunderbird-EOCXS0.desktop;
+message/rfc822=userapp-Thunderbird-EOCXS0.desktop;

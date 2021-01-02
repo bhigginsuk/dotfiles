@@ -1,0 +1,9 @@
+[Unit]
+Description=Buku server
+
+[Service]
+Environment=BUKUSERVER_DB_FILE=%h/sync/buku/bookmarks.db
+ExecStart=/usr/bin/bukuserver run --host 127.0.0.1 --port 5001 
+
+[Install]
+WantedBy=default.service

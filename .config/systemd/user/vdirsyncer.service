@@ -1,0 +1,8 @@
+[Unit]
+Description=Synchronize calendars and contacts
+Documentation=https://vdirsyncer.readthedocs.org/
+
+[Service]
+Environment=GNUPGHOME=/home/b/sync/gnupghome
+ExecStart=/usr/bin/vdirsyncer sync
+Type=oneshot

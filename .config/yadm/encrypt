@@ -1,0 +1,12 @@
+.sup/config.yaml
+.sup/sources.yaml
+.qmul_signature
+bin/dwm-scripts/
+.mbsyncrc
+.mailcheckrc
+.config/vdirsyncer/config
+.config/qutebrowser/quickmarks
+.config/msmtp/config
+.config/khard/khard.conf
+.config/khal/config
+

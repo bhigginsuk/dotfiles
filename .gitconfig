@@ -1,0 +1,15 @@
+[alias]
+	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	pushall = !git remote | xargs -l git push --all
+[credential]
+	helper = store
+[mergetool "gitblade"]
+	cmd = \"/usr/lib/gitblade/gitblade\" -c \"\"
+	trustExitCode = true
+[user]
+	name = Benjamin Higgins
+	email = bhigginsuk@protonmail.com
+[merge]
+	tool = meld
+[diff]
+	tool = meld

@@ -1,0 +1,7 @@
+[Unit]
+Description=mbsync
+
+[Service]
+Type=oneshot
+Environment=GNUPGHOME=/home/b/sync/gnupghome
+ExecStart=/usr/bin/mbsync -Va
