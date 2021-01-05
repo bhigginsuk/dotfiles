@@ -1,3 +1,5 @@
+" ===== MISC =====
+
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
 
@@ -61,6 +63,9 @@ augroup TextWidthTypes
 	autocmd FileType tex,plaintex,mail,markdown set formatoptions+=t
 augroup END
 
+" Run ctags on C file changes
+autocmd BufWritePost *.c,*.h silent! !ctags . &
+
 " ====== KEYBINDINGS =====
 
 " Set leader
@@ -109,6 +114,10 @@ autocmd FileType nerdtree nnoremap <buffer> <Backspace> :NERDTreeClose<CR>
 " Cycle open buffers
 nnoremap <tab> :BufMRUNext<CR>
 nnoremap <S-tab> :BufMRUPrev<CR>
+
+" Jump list
+nnoremap <C-b> <C-i>
+nnoremap <C-k> <C-o>
 
 " ====== PLUGINS (vim-plug) ======
 filetype plugin on
