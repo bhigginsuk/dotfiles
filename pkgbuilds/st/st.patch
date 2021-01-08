@@ -1,0 +1,56 @@
+diff --git a/home/b/config.def.h b/config.def.h
+index 51d0236..b208b4a 100644
+--- a/home/b/config.def.h
++++ b/config.def.h
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Fira Code:size=10";
+ static int borderpx = 2;
+ 
+ /*
+@@ -16,7 +16,7 @@ static int borderpx = 2;
+  * 4: value of shell in /etc/passwd
+  * 5: value of shell in config.h
+  */
+-static char *shell = "/bin/sh";
++static char *shell = "/bin/bash";
+ char *utmp = NULL;
+ /* scroll program: to enable use a string like "scroll" */
+ char *scroll = NULL;
+@@ -74,7 +74,7 @@ static unsigned int cursorthickness = 2;
+ static int bellvolume = 0;
+ 
+ /* default TERM value */
+-char *termname = "st-256color";
++char *termname = "xterm-256color";
+ 
+ /*
+  * spaces per tab
+@@ -120,6 +120,7 @@ static const char *colorname[] = {
+ 	/* more colors can be added after 255 to use with DefaultXX */
+ 	"#cccccc",
+ 	"#555555",
++	"#1E1E1E"
+ };
+ 
+ 
+@@ -128,7 +129,7 @@ static const char *colorname[] = {
+  * foreground, background, cursor, reverse cursor
+  */
+ unsigned int defaultfg = 7;
+-unsigned int defaultbg = 0;
++unsigned int defaultbg = 258;
+ static unsigned int defaultcs = 256;
+ static unsigned int defaultrcs = 257;
+ 
+@@ -244,6 +245,7 @@ static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
+  */
+ static Key key[] = {
+ 	/* keysym           mask            string      appkey appcursor */
++	{ XK_Return,        ShiftMask,      "\033[13;2u",    0,    0},
+ 	{ XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1},
+ 	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,   +1},
+ 	{ XK_KP_Home,       XK_ANY_MOD,     "\033[H",        0,   -1},

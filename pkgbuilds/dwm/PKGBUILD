@@ -1,0 +1,56 @@
+pkgname=bhiggins-dwm
+_appname='dwm'
+pkgver=6.2
+pkgrel=1
+pkgdesc='My dwm configuration'
+arch=('x86_64')
+url='https://dwm.suckless.org/'
+license=('MIT')
+depends=('libx11' 'libxft')
+makedepends=('ncurses' 'libxext')
+provides=('dwm')
+conflicts=('dwm')
+_patches=("https://dwm.suckless.org/patches/systray/dwm-systray-6.2.diff"
+          "https://dwm.suckless.org/patches/gaplessgrid/dwm-gaplessgrid-20160731-56a31dc.diff"
+          "https://dwm.suckless.org/patches/centeredmaster/dwm-centeredmaster-20160719-56a31dc.diff"
+          "https://dwm.suckless.org/patches/focusmaster/dwm-focusmaster-20200717-bb2e722.diff"
+          "https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff"
+          "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20170508-ceac8c9.diff"
+          "file://dwm.patch")
+source=("https://dl.suckless.org/$_appname/$_appname-$pkgver.tar.gz"
+        "file://config.def.h"
+        "${_patches[@]}")
+sha256sums=('97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e'
+            'SKIP'
+            'd60e6b4533e9079e6bc57bde9e25d6ac0b620122098ff5d34f806fecf8d1a7a6'
+            'a971b0088aa53b43099c76a7952ea173112c8de908cc652e2a099b8dfd323fa8'
+            '0193d8be60cd3f978d1ee6876c39a2bbc154fbb95261e3680dc623317d905859'
+            '631105e3a8a7c887c6dc0910ae6c5d25e1f7b031c50c8790e21d72482b96ac59'
+            '01cf4b387d2b2aee77e9c6288b5193b2cb5192405d1a9916ea82687152967fd1'
+            '3ab0872f66ca32ccef66e851a07087456a69fad6e7729dbec08f78e7ee93b0f3'
+            'SKIP')
+
+prepare() {
+    cd "$_appname-$pkgver"
+
+    echo "Modifying fakefullscreen patch"
+    sed -i 's/XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, m->ww, bh);/resizebarwin(m);/' "$srcdir/dwm-fakefullscreen-20170508-ceac8c9.diff"
+
+    for patch in "${_patches[@]}"; do
+        echo "Applying $(basename $patch)"
+        patch -p1 -i "$srcdir/$(basename $patch)"
+    done
+
+    echo "Copying in config.def.h"
+    cp "$srcdir/config.def.h" .
+}
+
+build() {
+    cd "$_appname-$pkgver"
+    make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+    cd "$_appname-$pkgver"
+    make DESTDIR="$pkgdir/" install
+}       

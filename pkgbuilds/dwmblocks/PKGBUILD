@@ -1,0 +1,32 @@
+pkgname=bhiggins-dwmblocks
+_appname='dwmblocks'
+pkgver=r63.96cbb45
+pkgrel=1
+pkgdesc='My dwmblocks configuration'
+arch=('x86_64')
+url='https://github.com/torrinfail/dwmblocks'
+license=('ISC')
+provides=('dwmblocks')
+conflicts=('dwmblocks')
+source=("git+$url"
+        "file://blocks.def.h")
+md5sums=('SKIP' 'SKIP')
+
+pkgver() {
+  cd "$_appname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+    mv -f "$srcdir/blocks.def.h" "$_appname"
+}
+
+build() {
+    cd "$_appname"
+    make
+}
+
+package() {
+    cd "$_appname"
+    make DESTDIR="$pkgdir/" install
+}       
