@@ -60,11 +60,14 @@ set formatoptions=cro
 " Enable automatic newlines after 90 chars for some file types
 augroup TextWidthTypes
 	autocmd!
-	autocmd FileType tex,plaintex,mail,markdown set formatoptions+=t
+	autocmd FileType tex,plaintex,mail,markdown,text set formatoptions+=t
 augroup END
 
 " Run ctags on C file changes
 autocmd BufWritePost *.c,*.h silent! !ctags . &
+
+" Relative line numbers
+set number relativenumber
 
 " ====== KEYBINDINGS =====
 
@@ -144,6 +147,7 @@ call plug#end()
 
 " --- PLUGIN airline ---
 let g:airline_theme = 'codedark'
+let g:airline_section_z = '%p%% %#__accent_bold#L:%l/%L%#__restore__# C:%v R:%{strlen(@")}'
 
 " Enable tabline
 let g:airline#extensions#tabline#enabled = 1
