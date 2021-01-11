@@ -21,6 +21,7 @@ _patches=(
         "https://dwm.suckless.org/patches/rotatestack/dwm-rotatestack-20161021-ab9571b.diff"
         "file://dwm.patch"
         "file://config.patch"
+        "file://machine.patch"
 )
 source=(
         "https://dl.suckless.org/$_appname/$_appname-$pkgver.tar.gz"
@@ -35,6 +36,7 @@ sha256sums=('97902e2e007aaeaa3c6e3bed1f81785b817b7413947f1db1d3b62b8da4cd110e'
             '3ab0872f66ca32ccef66e851a07087456a69fad6e7729dbec08f78e7ee93b0f3'
             'ff65f2e8e6a6a733edb78819c50a3ee8513043550d4157a38608d443f9ff8d73'
             '27c889d424e1b539cd8b113d0c4f9693be521a0a2ef5adf246ecf3efb4208f3c'
+            'SKIP'
             'SKIP'
             'SKIP'
 )

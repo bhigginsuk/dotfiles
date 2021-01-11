@@ -9,8 +9,9 @@ license=('ISC')
 provides=('dwmblocks')
 conflicts=('dwmblocks')
 source=("git+$url"
-        "file://blocks.def.h")
-md5sums=('SKIP' 'SKIP')
+        "file://blocks.def.h"
+        "file://machine.patch")
+md5sums=('SKIP' 'SKIP' 'SKIP')
 
 pkgver() {
   cd "$_appname"
@@ -18,7 +19,9 @@ pkgver() {
 }
 
 prepare() {
-    mv -f "$srcdir/blocks.def.h" "$_appname"
+    cd "$_appname"
+    cp -f "$srcdir/blocks.def.h" .
+    patch -p1 -i "$srcdir/machine.patch"
 }
 
 build() {

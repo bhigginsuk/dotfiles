@@ -1,0 +1,15 @@
+diff --git a/blocks.def.h b/blocks.def.h
+index c3c1b32..84ba49b 100644
+--- a/blocks.def.h
++++ b/blocks.def.h
+@@ -35,7 +35,9 @@ static const Block blocks[] = {
+ 
+     {"", "date '+%g %V %u %H' | awk '{ w = $1$2; print(\"W\"w-2038\"/\"(($3 > 2 && $4 > 11) || ($3 > 3) ? w : w-1)); }'", 5, 0},
+ 
+-    {"", "date '+%A %Y-%m-%d %H:%M %Z'", 5, 0}
++    {"", "date '+%A %Y-%m-%d %H:%M %Z'", 5, 0},
++
++    {"", "/home/b/bin/dwm-scripts/battery", 60, 0 }
+ };
+ 
+ //sets delimeter between status commands. NULL character ('\0') means no delimeter.

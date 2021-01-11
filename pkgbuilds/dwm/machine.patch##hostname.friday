@@ -1,0 +1,13 @@
+diff --git a/config.def.h b/config.def.mine.laptop.h
+--- a/config.def.h
++++ b/config.def.laptop.h
+@@ -45,8 +45,8 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
++    { "T",      tile },    /* first entry is default */
+     { "CM",      centeredmaster },
+-	{ "T",      tile },    /* first entry is default */
+ 	{ "F",      monocle },
+     { "GG",      gaplessgrid },
+     { "CFM",      centeredfloatingmaster },

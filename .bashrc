@@ -110,6 +110,7 @@ source /usr/share/git/completion/git-prompt.sh
 export PS1="\[\e[01;32m\][\[\e[m\]\[\e[01;39m\]\t\[\e[m\] \[\e[01;32m\]\u\[\e[m\] \[\e[01;34m\]\W\[\e[m\]\[\e[01;31m\]\$(__git_ps1 \" (%s)\")\[\e[m\]\[\e[01;32m\]]\[\e[m\]\\n\\$ "
 export GNUPGHOME=~/sync/gnupghome/
 export VISUAL=vim
+export EDITOR=vim
 
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes

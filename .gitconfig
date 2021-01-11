@@ -1,11 +1,14 @@
 [alias]
 	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pushall = !git remote | xargs -I {} git push {}
-    c = commit
+    co = commit
     ce = commit -m \"\" --allow-empty-message
     ca = commit --amend --no-edit
     cae = commit --amend --no-edit --allow-empty-message
     s = status
+    f = fetch
+    r = reset
+    ch = checkout
 [credential]
 	helper = store
 [mergetool "gitblade"]
@@ -18,3 +21,5 @@
 	tool = meld
 [diff]
 	tool = meld
+[pull]
+	ff = only

@@ -1,5 +1,5 @@
 diff --git a/config.def.h b/config.def.mine.h
-index cec18f9..a2e1bf8 100644
+index cec18f9..04ce163 100644
 --- a/config.def.h
 +++ b/config.def.mine.h
 @@ -1,16 +1,18 @@
@@ -20,7 +20,7 @@ index cec18f9..a2e1bf8 100644
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
 +static const int topbar             = 0;        /* 0 means bottom bar */
-+static const char *fonts[]          = { "Fira Code:size=10" };
++static const char *fonts[]          = { "Fira Code:size=9" };
 +static const char dmenufont[]       = "Fira Code:size=10";
  static const char col_gray1[]       = "#222222";
  static const char col_gray2[]       = "#444444";
@@ -34,7 +34,7 @@ index cec18f9..a2e1bf8 100644
  
  /* layout(s) */
 -static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
++static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
 -static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 +static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
@@ -54,7 +54,7 @@ index cec18f9..a2e1bf8 100644
  };
  
  /* key definitions */
-@@ -62,35 +65,38 @@ static const Layout layouts[] = {
+@@ -62,35 +65,39 @@ static const Layout layouts[] = {
  
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -72,7 +72,7 @@ index cec18f9..a2e1bf8 100644
  	/* modifier                     key        function        argument */
 -	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 -	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-+	{ MODKEY,                       XK_Super_L,spawn,          {.v = dmenucmd } },
++	{ 0,                            XK_Super_L,spawn,          {.v = dmenucmd } },
 +	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
 -	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
@@ -98,7 +98,7 @@ index cec18f9..a2e1bf8 100644
 -	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 -	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
 -	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-+	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
++	{ MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
 +	{ MODKEY|ShiftMask,             XK_n,      movestack,      {.i = +1 } },
 +	{ MODKEY|ShiftMask,             XK_e,      movestack,      {.i = -1 } },
 +	{ MODKEY,                       XK_Tab,    zoom,           {0} },
@@ -108,13 +108,14 @@ index cec18f9..a2e1bf8 100644
 +	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
 +	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 +	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
++	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[4]} },
  	{ MODKEY,                       XK_space,  setlayout,      {0} },
 -	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 +	{ MODKEY|ShiftMask,             XK_BackSpace,togglefloating,{0} },
  	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
  	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
  	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-@@ -106,7 +112,14 @@ static Key keys[] = {
+@@ -106,7 +113,14 @@ static Key keys[] = {
  	TAGKEYS(                        XK_7,                      6)
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
