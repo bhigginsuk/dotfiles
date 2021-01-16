@@ -6,8 +6,8 @@ index c3c1b32..84ba49b 100644
  
      {"", "date '+%g %V %u %H' | awk '{ w = $1$2; print(\"W\"w-2038\"/\"(($3 > 2 && $4 > 11) || ($3 > 3) ? w : w-1)); }'", 5, 0},
  
--    {"", "date '+%A %Y-%m-%d %H:%M %Z'", 5, 0}
-+    {"", "date '+%A %Y-%m-%d %H:%M %Z'", 5, 0},
+-    {"", "date '+%a %Y-%m-%d %H:%M %Z'", 5, 0}
++    {"", "date '+%a %Y-%m-%d %H:%M %Z'", 5, 0},
 +
 +    {"", "/home/b/bin/dwm-scripts/battery", 60, 0 }
  };

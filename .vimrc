@@ -69,6 +69,9 @@ autocmd BufWritePost *.c,*.h silent! !ctags . &
 " Relative line numbers
 set number relativenumber
 
+" Disable double spaces after punctuation
+set nojoinspaces
+
 " ====== KEYBINDINGS =====
 
 " Set leader
