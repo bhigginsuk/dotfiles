@@ -22,3 +22,7 @@
 	tool = meld
 [pull]
 	ff = only
+[fetch]
+	prune = true
+[gui]
+	recentrepo = /home/b/projects/effb-deliveries

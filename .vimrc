@@ -82,8 +82,8 @@ command BuildLaTeX execute "!PDF_FILE=$(echo % \| sed 's/tex$/pdf/') && mkdir -p
 command BuildBibLaTeX execute "!biber --input-directory=out --output-directory=out $(echo % \| sed -E 's/\.(tex\|bib)$//')"
 command ViewLaTeX silent execute "!zathura out/$(echo % \| sed 's/tex$/pdf/') & disown"
 command SpellCheckLaTeX execute "!aspell --lang=en --mode=tex --home-dir=. --personal=spelling.txt check %"
-autocmd FileType tex,plaintex nnoremap <buffer> W :w<CR> :SpellCheckLaTeX<CR> :BuildLaTeX <CR><CR> :e!<CR> :redraw!<CR>
-autocmd FileType tex,plaintex nnoremap <buffer> B :w<CR> :BuildBibLaTeX<CR><CR> :e!<CR> :redraw!<CR>
+autocmd FileType tex,plaintex nnoremap <buffer> <silent> W :w<CR> :SpellCheckLaTeX<CR> :BuildLaTeX <CR><CR> :e!<CR> :redraw!<CR>
+autocmd FileType tex,plaintex nnoremap <buffer> <silent> B :w<CR> :BuildBibLaTeX<CR><CR> :e!<CR> :redraw!<CR>
 
 " Python/ipynb bindings
 autocmd FileType python nnoremap <buffer> W :w<CR> :silent !qutebrowser :reload<CR> :redraw!<CR>
@@ -100,30 +100,27 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 
 " Map move line up/down around
-nnoremap <silent> <S-Up> :m .-2<CR>==
-nnoremap <silent> <S-Down> :m .+1<CR>==
-
-" Map tig command
-nnoremap <F3> :w<CR> :!tig<CR><CR>
+nnoremap <S-Up> :m .-2<CR>==
+nnoremap <S-Down> :m .+1<CR>==
 
 " Open fzf
-nnoremap <Leader>, :Files<CR>
-noremap <Leader>. :Rg<CR>
+nnoremap <silent> <Leader>, :Files<CR>
+noremap <silent> <Leader>. :Rg<CR>
 
 " Open/close NERDTree
-nnoremap <Backspace> :NERDTreeFocus<CR>
-autocmd FileType nerdtree nnoremap <buffer> <Backspace> :NERDTreeClose<CR>
+nnoremap <silent> <Backspace> :NERDTreeFocus<CR>
+autocmd FileType nerdtree nnoremap <buffer> <silent> <Backspace> :NERDTreeClose<CR>
 
 " Display open buffers
 " nnoremap <Leader><tab> :call feedkeys(":b \<Tab>", "tn")<CR>
 
 " Cycle open buffers
-nnoremap <tab> :BufMRUNext<CR>
-nnoremap <S-tab> :BufMRUPrev<CR>
+nnoremap <silent> <tab> :BufMRUNext<CR>
+nnoremap <silent> <S-tab> :BufMRUPrev<CR>
 
 " Jump list
-nnoremap <C-k> <C-i>
-nnoremap <C-b> <C-o>
+nnoremap <silent> <C-k> <C-i>
+nnoremap <silent> <C-b> <C-o>
 
 " ====== PLUGINS (vim-plug) ======
 filetype plugin on

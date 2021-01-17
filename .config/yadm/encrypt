@@ -10,3 +10,4 @@ bin/dwm-scripts/
 .config/khard/khard.conf
 .config/khal/config
 .xinitrc##hostname.*
+.electrum/config
