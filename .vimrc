@@ -63,6 +63,8 @@ augroup TextWidthTypes
 	autocmd FileType tex,plaintex,mail,markdown,text set formatoptions+=t
 augroup END
 
+autocmd FileType mail,markdown,text set spell
+
 " Run ctags on C file changes
 autocmd BufWritePost *.c,*.h silent! !ctags . &
 
