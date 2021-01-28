@@ -12,3 +12,6 @@ config.set("content.notifications", True, "https://web.whatsapp.com")
 config.set("content.cookies.accept", "all", "https://*.wolframalpha.com")
 config.set("content.cookies.accept", "all", "https://*.github.com")
 config.set("content.cookies.accept", "never", "https://*.youtube.com")
+
+config.bind("<Ctrl-m>", "spawn ~/bin/qutebrowser/umpv {hint-url}")
+config.bind("<Ctrl-Shift-m>", "hint links spawn ~/bin/qutebrowser/umpv {hint-url}")
