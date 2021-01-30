@@ -1,6 +1,6 @@
-diff --git a/config.def.h b/config.def.mine.h
+diff --git a/src/dwm-6.2/config.def.h.~5~ b/config.def.mine.h
 index cec18f9..04432d9 100644
---- a/config.def.h
+--- a/src/dwm-6.2/config.def.h.~5~
 +++ b/config.def.mine.h
 @@ -1,16 +1,18 @@
  /* See LICENSE file for copyright and license details. */

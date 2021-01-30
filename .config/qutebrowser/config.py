@@ -1,3 +1,5 @@
+config.load_autoconfig()
+
 c.url.default_page = "https://startpage.com/"
 c.url.searchengines = {"DEFAULT": "https://startpage.com/sp/search?q={}"}
 c.url.start_pages = "https://startpage.com"
