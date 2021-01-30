@@ -1,0 +1,14 @@
+[Unit]
+Description=Miniflux Feed Reader
+Wants=network-online.target miniflux-postgresql.service
+After=network-online.target miniflux-postgresql.service
+
+[Service]
+Type=simple
+Environment=DATABASE_URL="host=/tmp port=5434 user=miniflux password=miniflux dbname=miniflux sslmode=disable"
+Environment=LISTEN_ADDR="127.0.0.1:8081"
+ExecStart=/usr/bin/miniflux
+Restart=always
+
+[Install]
+WantedBy=default.target

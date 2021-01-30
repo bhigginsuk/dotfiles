@@ -5,11 +5,9 @@ static const Block blocks[] = {
 
     {"", "/home/b/bin/dwm-scripts/github-notifications", 3600, 0},
 
-    {"", "/usr/bin/mailcheck -bc | sed -z 's/\n/+/; s/[^0-9+\n]//g' | bc | awk -v def=\"0\" '{print \"M:\"$1} END {if(NR==0){print def}}' | tr -d '\n' && systemctl --user status mbsync.service |  awk '/Active:/ { match($0, /[0-9]min/,arr); if(arr[0]) {printf \" (\"arr[0]} else {printf \" (<1min\"}} END {print \" ago)\"}'", 60, 0},
+    {"", "checkupdates | wc -l | awk '{ print \"P: \"$1 }'", 3600, 0},
 
-    {"", "checkupdates | wc -l | awk '{ if ($1) print \"P: \"$1 }'", 3600, 0},
-
-    {"", "yay -Qua | wc -l | awk '{ if ($1) print \"Y: \"$1 }'", 3600, 0},
+    {"", "yay -Qua | wc -l | awk '{ print \"Y: \"$1 }'", 3600, 0},
 
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=USD' -H 'accept: application/json' | jq '.bitcoin.usd'", 900, 0},
     
