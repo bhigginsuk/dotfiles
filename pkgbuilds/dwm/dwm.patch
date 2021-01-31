@@ -50,7 +50,7 @@ index cec18f9..04432d9 100644
  
  /* layout(s) */
 -static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-+static const float mfact     = 0.40; /* factor of master area size [0.05..0.95] */
++static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
 -static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 +static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
@@ -81,7 +81,7 @@ index cec18f9..04432d9 100644
 +static const char *ankicmd[]  = { "/usr/bin/anki", NULL };
 +static const char *flameshotcmd[] = { "/usr/bin/flameshot", "gui", NULL };
 +static const char *togglekeyboardcmd[] = { "/home/b/bin/toggle-internal-keyboard.sh", NULL };
-+static const char *vifmcmd[] = {"st", "-e", "/usr/bin/vifm", NULL };
++static const char *vifmcmd[] = {"st", "-e", "/usr/bin/vifmrun", NULL };
  
 -#include "movestack.c"
  static Key keys[] = {

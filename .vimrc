@@ -139,6 +139,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-python/python-syntax'
+Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 

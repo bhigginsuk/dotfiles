@@ -1,9 +1,7 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
-	{"", "cmus-remote -Q | sed -n 's/tag artist //p; s/tag title //p; s/tag album //p' | tac | tr '\\n' '#' | sed 's/.$/\\n/g; s/#/ - /g'",	30,		0},
-
-    {"", "/home/b/bin/dwm-scripts/github-notifications", 3600, 0},
+    {"", "cmus-remote -Q | sed -n 's/tag artist //p; s/tag title //p; s/tag album //p' | tac | tr '\\n' '#' | sed 's/.$/\\n/g; s/#/ - /g'",	30,		0},
 
     {"", "checkupdates | wc -l | awk '{ print \"P: \"$1 }'", 3600, 0},
 
@@ -13,7 +11,7 @@ static const Block blocks[] = {
     
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD' -H 'accept: application/json' | jq '.ethereum.usd'", 900, 0},
 
-    {"", "curl -X GET 'https://ethgasstation.info/api/ethgasAPI.json' | jq '.safeLow'", 900, 0},
+    {"", "curl -X GET 'https://ethgasstation.info/api/ethgasAPI.json' | jq '.safeLow' | awk '{ print $0/10 }'", 900, 0},
 
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=maker&vs_currencies=USD' -H 'accept: application/json' | jq '.maker.usd'", 900, 0},
 
