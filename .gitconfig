@@ -1,5 +1,5 @@
 [alias]
-	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %aE %cE' --abbrev-commit
 	pushall = !git remote | xargs -I {} git push {}
     cm = commit -m 
     ce = commit -m \"\" --allow-empty-message
@@ -8,6 +8,7 @@
     f = fetch
     r = reset
     ch = checkout
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
 [credential]
 	helper = store
 [mergetool "gitblade"]
