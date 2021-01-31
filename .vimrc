@@ -106,15 +106,12 @@ nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 
 " Open fzf
-nnoremap <silent> <Leader>, :Files<CR>
+nnoremap <silent> <Leader><Backspace> :Files<CR>
 noremap <silent> <Leader>. :Rg<CR>
 
 " Open/close NERDTree
-nnoremap <silent> <Backspace> :NERDTreeFocus<CR>
+nnoremap <silent> <Backspace> :NERDTreeFocus<CR> 
 autocmd FileType nerdtree nnoremap <buffer> <silent> <Backspace> :NERDTreeClose<CR>
-
-" Display open buffers
-" nnoremap <Leader><tab> :call feedkeys(":b \<Tab>", "tn")<CR>
 
 " Cycle open buffers
 nnoremap <silent> <tab> :BufMRUNext<CR>
@@ -129,88 +126,222 @@ filetype plugin on
 
 call plug#begin("~/.vim/plugged")
 
-Plug 'davidhalter/jedi-vim'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'fisadev/vim-isort'
 Plug 'goerz/jupytext.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'psf/black', { 'branch': 'stable' }
+Plug 'mildred/vim-bufmru'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-python/python-syntax'
-Plug 'preservim/nerdtree'
-Plug 'mildred/vim-bufmru'
 
 call plug#end()
 
-" --- PLUGIN airline ---
+" --- plugin airline ---
 let g:airline_theme = 'codedark'
-let g:airline_section_z = '%p%% %#__accent_bold#L:%l/%L%#__restore__# C:%v R:%{strlen(@")}'
+let g:airline_section_z = '%p%% %#__accent_bold#l:%l/%l%#__restore__# c:%v r:%{strlen(@")}'
 
-" Enable tabline
+" enable tabline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_filetype_ovirrides = { 'minibufexpl': ['MiniBufExplorerrrr', ''] }
+let g:airline_filetype_ovirrides = { 'minibufexpl': ['minibufexplorerrrr', ''] }
+
+
+
+" --- plugin jupytext ---
+let g:jupytext_fmt = "py"
+
+" --- plugin black ---
+" configure black to run on python file save
+autocmd bufwritepre *.py silent! execute ':black'
+
+" --- plugin vim-code-dark ---
+colorscheme codedark
+
+" --- plugin python-syntax ---
+" enable more complex python syntax highlighting with vim-python/python-syntax
+let g:python_highlight_all = 1
+
+
+" --- plugin nerdtree ---
+let g:NERDTreeQuitOnOpen = 1
+
+" --- plugin coc.nvim ---
+let g:coc_global_extensions = [
+    \'coc-pyright',
+    \'coc-rust-analyzer',
+    \]
+
+" use tab for trigger completion with characters ahead and navigate.
+" note: use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <tab>
+      \ pumvisible() ? "\<c-n>" :
+      \ <sid>check_back_space() ? "\<tab>" :
+      \ coc#refresh()
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" make <cr> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
+
+" use `[g` and `]g` to navigate diagnostics
+" use `:cocdiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <plug>(coc-diagnostic-prev)
+nmap <silent> ]g <plug>(coc-diagnostic-next)
+
+" goto code navigation.
+nmap <silent> <leader>d <plug>(coc-definition)
+nmap <silent> gy <plug>(coc-type-definition)
+nmap <silent> gi <plug>(coc-implementation)
+nmap <silent> gr <plug>(coc-references)
+
+" use k to show documentation in preview window.
+nnoremap <silent> k :call <sid>show_documentation()<cr>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('dohover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" highlight the symbol and its references when holding the cursor.
+autocmd cursorhold * silent call CocActionAsync('highlight')
+
+" symbol renaming.
+nmap <leader>r <plug>(coc-rename)
+
+augroup mygroup
+  autocmd!
+  " setup formatexpr specified filetype(s).
+  autocmd filetype typescript,json setl formatexpr=cocaction('formatselected')
+  " update signature help on jump placeholder.
+  autocmd user cocjumpplaceholder call CocActionAsync('showsignaturehelp')
+augroup end
+
+" applying codeaction to the selected region.
+" example: `<leader>aap` for current paragraph
+xmap <leader>a  <plug>(coc-codeaction-selected)
+nmap <leader>a  <plug>(coc-codeaction-selected)
+
+" remap keys for applying codeaction to the current buffer.
+nmap <leader>ac  <plug>(coc-codeaction)
+" apply autofix to problem on the current line.
+nmap <leader>qf  <plug>(coc-fix-current)
+
+" map function and class text objects
+" note: requires 'textdocument.documentsymbol' support from the language server.
+xmap if <plug>(coc-funcobj-i)
+omap if <plug>(coc-funcobj-i)
+xmap af <plug>(coc-funcobj-a)
+omap af <plug>(coc-funcobj-a)
+xmap ic <plug>(coc-classobj-i)
+omap ic <plug>(coc-classobj-i)
+xmap ac <plug>(coc-classobj-a)
+omap ac <plug>(coc-classobj-a)
+
+" remap <c-f> and <c-b> for scroll float windows/popups.
+"if has('nvim-0.4.0') || has('patch-8.2.0750')
+"  nnoremap <silent><nowait><expr> <c-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-f>"
+"  nnoremap <silent><nowait><expr> <c-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-b>"
+"  inoremap <silent><nowait><expr> <c-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<right>"
+"  inoremap <silent><nowait><expr> <c-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<left>"
+"  vnoremap <silent><nowait><expr> <c-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-f>"
+"  vnoremap <silent><nowait><expr> <c-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-b>"
+"endif
+
+" use ctrl-s for selections ranges.
+" requires 'textdocument/selectionrange' support of language server.
+nmap <silent> <c-s> <plug>(coc-range-select)
+xmap <silent> <c-s> <plug>(coc-range-select)
+
+" add `:format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" add `:fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" add `:or` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" add (neo)vim's native statusline support.
+" note: please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" mappings for coclist
+" show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<c-u>coclist diagnostics<cr>
+" manage extensions.
+nnoremap <silent><nowait> <space>e  :<c-u>coclist extensions<cr>
+" show commands.
+nnoremap <silent><nowait> <space>c  :<c-u>coclist commands<cr>
+" find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Run on Python file save
+autocmd BufWritePre *.py silent! :OR
+
 
 " --- PLUGIN ALE ---
+"  MUST BE AT THE BOTTOM OF THE FILE
+"  Else other plugins clear the highlight groups somehow
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-	\ 'python': ['mypy', 'flake8'],
 	\ 'tex': ['chktex'],
 	\ 'c': ['gcc'],
 	\ 'lisp': ['sbcl --script']
 \}
 
-let g:ale_sign_error = "ER"
-let g:ale_sign_warning = "WA"
-let g:ale_sign_info = "IN"
-let g:ale_sign_style_error = "SE"
-let g:ale_sign_style_warning = "SW"
+" Set signs/colours (:hi to see all highlight groups)
+let g:ale_sign_error = "✘"
+highlight link ALEErrorSign ErrorMsg
+highlight link ALEError ErrorMsg
 
-" Set sign highlighting
-highlight link ALEErrorSign Error
-highlight link ALEStyleErrorSign Error
+let g:ale_sign_warning = "⚠"
 highlight link ALEWarningSign WarningMsg
-highlight link ALEStyleWarningSign Todo
+highlight link ALEWarning ErrorMsg
 
-" Set highlighting (:hi to see all avail)
-highlight link ALEError Error
-highlight link ALEWarning Error
+let g:ale_sign_style_error = "⚐"
+highlight link ALEStyleErrorSign ErrorMsg
+highlight link ALEStyleError ErrorMsg
+
+let g:ale_sign_style_warning = "⚐"
+highlight link ALEStyleWarningSign WarningMsg
+highlight link ALEStyleWarning WarningMsg
+
+let g:ale_sign_info = "ℹ"
 highlight link ALEInfo Todo
-highlight link ALEStyleError Error
-highlight link ALEStyleWarning Error
-
-" --- PLUGIN isort ---
-" Run on Python file save
-autocmd BufWritePre *.py silent! execute ':Isort'
-
-" --- PLUGIN jupytext ---
-let g:jupytext_fmt = "py"
-
-" --- PLUGIN black ---
-" Configure Black to run on Python file save
-autocmd BufWritePre *.py silent! execute ':Black'
-
-" --- PLUGIN vim-code-dark ---
-colorscheme codedark
-
-" --- PLUGIN python-syntax ---
-" Enable more complex python syntax highlighting with vim-python/python-syntax
-let g:python_highlight_all = 1
-
-" --- PLUGIN jedi-vim ---
-" Turn off docstring popup during completion
-" (stop nauseating jumping when opening windows like
-" jedi-vim docstring window)
-autocmd FileType python setlocal completeopt-=preview
-autocmd FileType python setlocal splitbelow
-
-" --- PLUGIN NERDTree ---
-let g:NERDTreeQuitOnOpen = 1

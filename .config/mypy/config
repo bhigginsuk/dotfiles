@@ -2,7 +2,6 @@
 ignore_missing_imports = True
 
 disallow_any_decorated = True
-disallow_any_explicit = True
 disallow_any_generics = True
 
 disallow_untyped_defs = True

@@ -1,0 +1,10 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "python",
+        "rust"
+    ],
+    "python.formatting.provider": "black",
+    "python.linting.mypyEnabled": true,
+    "coc.preferences.diagnostic.displayByAle": true,
+    "diagnostic.errorSign": "✘"
+}

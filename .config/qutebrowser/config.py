@@ -5,6 +5,7 @@ c.auto_save.session = False
 c.content.cookies.accept = "no-3rdparty"
 c.new_instance_open_target = "tab-silent"
 c.content.notifications = False
+c.content.headers.do_not_track = False
 
 config.set("content.cookies.accept", "all", "*://*.microsoft.com")
 config.set("content.notifications", True, "https://web.whatsapp.com")
