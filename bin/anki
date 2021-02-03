@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/bin/archivemount ~/sync/anki.tar.gz ~/.local/share/Anki2/User\ 1
+/usr/bin/anki
+/usr/bin/umount ~/.local/share/Anki2/User\ 1

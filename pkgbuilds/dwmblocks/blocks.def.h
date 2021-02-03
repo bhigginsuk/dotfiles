@@ -7,6 +7,8 @@ static const Block blocks[] = {
 
     {"", "yay -Qua | wc -l | awk '{ print \"Y: \"$1 }'", 3600, 0},
 
+    {"", "curl 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=GME' | jq .quoteResponse.result[0].ask", 900, 0},
+
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=USD' -H 'accept: application/json' | jq '.bitcoin.usd'", 900, 0},
     
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD' -H 'accept: application/json' | jq '.ethereum.usd'", 900, 0},
@@ -31,7 +33,7 @@ static const Block blocks[] = {
 
     {"", "/home/b/bin/dwm-scripts/iface eno1", 60, 0},
 
-    {"", "date '+%g %V %u %H' | awk '{ w = $1$2; print(\"W\"w-2038\"/\"(($3 > 2 && $4 > 11) || ($3 > 3) ? w : w-1)); }'", 5, 0},
+    {"", "date '+%g %V %u %H' | awk '{ w = $1$2; print(\"W\"w-2103\"/\"(($3 > 2 && $4 > 11) || ($3 > 3) ? w : w-1)); }'", 5, 0},
 
     {"", "date '+%a %Y-%m-%d %H:%M %Z'", 5, 0},
 
