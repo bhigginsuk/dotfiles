@@ -15,5 +15,7 @@ config.set("content.cookies.accept", "all", "https://*.wolframalpha.com")
 config.set("content.cookies.accept", "all", "https://*.github.com")
 config.set("content.cookies.accept", "never", "https://*.youtube.com")
 
-config.bind("<Ctrl-m>", "spawn ~/bin/qutebrowser/umpv {url}")
-config.bind("<Ctrl-Shift-m>", "hint links spawn ~/bin/qutebrowser/umpv {hint-url}")
+config.bind("<Ctrl-m>", "spawn umpv {url}")
+config.bind("<Ctrl-Shift-m>", "hint links spawn umpv {hint-url}")
+c.aliases["zotero"] = "spawn --userscript zotero"
+c.aliases["Zotero"] = "hint links spawn --userscript zotero"

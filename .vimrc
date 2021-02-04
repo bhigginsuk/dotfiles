@@ -79,13 +79,10 @@ set nojoinspaces
 " Set leader
 let mapleader = "\<Space>"
 
-" LaTeX and BibTeX mappings and commands
-command BuildLaTeX execute "!PDF_FILE=$(echo % \| sed 's/tex$/pdf/') && mkdir -p out && pdflatex --output-directory=out %"
-command BuildBibLaTeX execute "!biber --input-directory=out --output-directory=out $(echo % \| sed -E 's/\.(tex\|bib)$//')"
-command ViewLaTeX silent execute "!zathura out/$(echo % \| sed 's/tex$/pdf/') & disown"
-command SpellCheckLaTeX execute "!aspell --lang=en --mode=tex --home-dir=. --personal=spelling.txt check %"
-autocmd FileType tex,plaintex nnoremap <buffer> <silent> W :w<CR> :SpellCheckLaTeX<CR> :BuildLaTeX <CR><CR> :e!<CR> :redraw!<CR>
-autocmd FileType tex,plaintex nnoremap <buffer> <silent> B :w<CR> :BuildBibLaTeX<CR><CR> :e!<CR> :redraw!<CR>
+" Markown/pandoc bindings
+command RenderPdf execute "!mkdir -p out && pandoc -d defaults.yml -o out/%:r.pdf %"
+command ViewPdf silent execute "!zathura out/%:r.pdf & disown"
+autocmd FileType markdown nnoremap <buffer> W :w<CR> :RenderPdf<CR><CR>
 
 " Python/ipynb bindings
 autocmd FileType python nnoremap <buffer> W :w<CR> :silent !qutebrowser :reload<CR> :redraw!<CR>
@@ -126,8 +123,9 @@ filetype plugin on
 
 call plug#begin("~/.vim/plugged")
 
+Plug 'Yggdroot/indentLine'
 Plug 'dense-analysis/ale'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'goerz/jupytext.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -139,7 +137,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-python/python-syntax'
-Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 
@@ -179,6 +176,7 @@ let g:NERDTreeQuitOnOpen = 1
 let g:coc_global_extensions = [
     \'coc-pyright',
     \'coc-rust-analyzer',
+    \'coc-json',
     \]
 
 " use tab for trigger completion with characters ahead and navigate.
@@ -346,3 +344,6 @@ highlight link ALEStyleWarning WarningMsg
 
 let g:ale_sign_info = "ℹ"
 highlight link ALEInfo Todo
+
+" --- PLUGIN indentLine ---
+let g:indentLine_char = '|'
