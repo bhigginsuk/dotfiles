@@ -1,8 +1,6 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
-    {"", "cmus-remote -Q | sed -n 's/tag artist //p; s/tag title //p; s/tag album //p' | tac | tr '\\n' '#' | sed 's/.$/\\n/g; s/#/ - /g'",	30,		0},
-
     {"", "checkupdates | wc -l | awk '{ print \"P: \"$1 }'", 3600, 0},
 
     {"", "yay -Qua | wc -l | awk '{ print \"Y: \"$1 }'", 3600, 0},

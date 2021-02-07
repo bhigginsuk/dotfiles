@@ -5,8 +5,8 @@
         "c"
     ],
     "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/usr/bin/black",
     "python.linting.mypyEnabled": true,
-    "diagnostic.displayByAle": true,
     "diagnostic.errorSign": "✘",
     "languageserver": {
         "ccls": {
