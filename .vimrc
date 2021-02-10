@@ -65,9 +65,6 @@ augroup END
 
 autocmd FileType mail,markdown,text set spell
 
-" Run ctags on C file changes
-autocmd BufWritePost *.c,*.h silent! !ctags . &
-
 " Relative line numbers
 set number relativenumber
 
@@ -89,10 +86,10 @@ autocmd FileType python nnoremap <buffer> W :w<CR> :silent !qutebrowser :reload<
 autocmd FileType python nnoremap <buffer> <Leader>q :!python $(echo % \| sed 's/ipynb$/py/')<CR>
 
 " Move around splits
-nnoremap <silent> <Leader><Right> <c-w>l
-nnoremap <silent> <Leader><Left> <c-w>h
-nnoremap <silent> <Leader><Up> <c-w>k
-nnoremap <silent> <Leader><Down> <c-w>j
+noremap <silent> <Leader><Right> <c-w>l
+noremap <silent> <Leader><Left> <c-w>h
+noremap <silent> <Leader><Up> <c-w>k
+noremap <silent> <Leader><Down> <c-w>j
 
 " Map Enter and Shift-Enter to insert newlines without entering edit mode
 nnoremap <S-Enter> O<Esc>
@@ -125,7 +122,7 @@ call plug#begin("~/.vim/plugged")
 
 Plug 'Yggdroot/indentLine'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'goerz/jupytext.vim'
+Plug 'bhigginsuk/jupytext.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mildred/vim-bufmru'
@@ -154,7 +151,8 @@ let g:airline_filetype_ovirrides = { 'minibufexpl': ['minibufexplorerrrr', ''] }
 
 
 " --- PLUGIN jupytext ---
-let g:jupytext_fmt = "py"
+let g:jupytext_fmt = "c"
+
 
 " --- PLUGIN black ---
 " configure black to run on python file save
@@ -176,6 +174,7 @@ let g:coc_global_extensions = [
     \'coc-pyright',
     \'coc-rust-analyzer',
     \'coc-json',
+    \'coc-sh'
     \]
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -193,11 +192,11 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-"if has('nvim')
-"  inoremap <silent><expr> <c-space> coc#refresh()
-"else
-"  inoremap <silent><expr> <c-@> coc#refresh()
-"endif
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+ inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -314,13 +313,13 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" MY ADDITIONS
+" My coc.nvim additions:
 
-" Map <C-Space> to show signature help instead of the default
-inoremap <silent><expr> <c-@> CocActionAsync('showSignatureHelp')
+" Show signature help manually
+inoremap <silent><expr> <F2> CocActionAsync('showSignatureHelp')
 
 " Sort imports on Python file save
-autocmd BufWritePre *.py silent! :OR
+autocmd BufWritePre *.py,*.go silent! :OR
 
 
 " --- PLUGIN ALE ---
@@ -355,3 +354,5 @@ highlight link ALEInfo Todo
 
 " --- PLUGIN indentLine ---
 let g:indentLine_char = '|'
+
+

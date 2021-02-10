@@ -1,8 +1,8 @@
 {
     "coc.preferences.formatOnSaveFiletypes": [
         "python",
-        "rust",
-        "c"
+        "c",
+        "go"
     ],
     "python.formatting.provider": "black",
     "python.formatting.blackPath": "/usr/bin/black",
@@ -29,6 +29,21 @@
                 "cache": {
                     "directory": "/tmp/ccls"
                 }
+            }
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "usePlaceholders": true
             }
         }
     }
