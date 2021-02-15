@@ -112,8 +112,8 @@ nnoremap <silent> <tab> :BufMRUNext<CR>
 nnoremap <silent> <S-tab> :BufMRUPrev<CR>
 
 " Jump list
-nnoremap <silent> <C-k> <C-i>
-nnoremap <silent> <C-b> <C-o>
+nnoremap <silent> <Leader>v <C-i>
+nnoremap <silent> <Leader>b <C-o>
 
 " ====== PLUGINS (vim-plug) ======
 filetype plugin on

@@ -17,7 +17,8 @@
                 "cpp",
                 "c++",
                 "objc",
-                "objcpp"
+                "objcpp",
+                "ipynb"
             ],
             "rootPatterns": [
                 ".ccls",

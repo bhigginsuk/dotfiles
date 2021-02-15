@@ -16,7 +16,7 @@
 	trustExitCode = true
 [user]
 	name = Benjamin Higgins
-	email = contact@brhiggins.com
+	email = mail@brhiggins.com
 [merge]
 	tool = meld
 [diff]
@@ -27,3 +27,5 @@
 	prune = true
 [gui]
 	recentrepo = /home/b/projects/effb-deliveries
+[init]
+	defaultBranch = main
