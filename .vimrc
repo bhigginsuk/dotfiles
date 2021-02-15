@@ -71,6 +71,27 @@ set number relativenumber
 " Disable double spaces after punctuation
 set nojoinspaces
 
+function! ReuseBuffer(name)
+    silent! r! ls
+endfunction
+
+function! Cheat(search)
+    let l:ft = &filetype
+    let winnr = bufwinnr("cht.sh")
+    if ( winnr >= 0 )
+        execute winnr . 'wincmd w'
+        execute 'normal ggdG'
+    else
+        new "cht.sh"
+        setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    endif
+    let &filetype=l:ft
+    let l:url = "cht.sh/".l:ft."/".a:search."?T"
+    silent execute "read !curl --silent ".l:url
+endfunction
+
+command -nargs=1 Cheat call Cheat(<f-args>)
+
 " ====== KEYBINDINGS =====
 
 " Set leader
@@ -122,12 +143,12 @@ call plug#begin("~/.vim/plugged")
 
 Plug 'Yggdroot/indentLine'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'bhigginsuk/jupytext.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mildred/vim-bufmru'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+Plug 'puremourning/vimspector'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
@@ -147,7 +168,6 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline_filetype_ovirrides = { 'minibufexpl': ['minibufexplorerrrr', ''] }
-
 
 
 " --- PLUGIN jupytext ---
@@ -354,5 +374,3 @@ highlight link ALEInfo Todo
 
 " --- PLUGIN indentLine ---
 let g:indentLine_char = '|'
-
-
