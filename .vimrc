@@ -71,10 +71,10 @@ set number relativenumber
 " Disable double spaces after punctuation
 set nojoinspaces
 
-function! ReuseBuffer(name)
-    silent! r! ls
-endfunction
+" Show keys that correspond to partial commands (bottom right)
+set showcmd
 
+" Function to search cheat.sh
 function! Cheat(search)
     let l:ft = &filetype
     let winnr = bufwinnr("cht.sh")
@@ -90,6 +90,7 @@ function! Cheat(search)
     silent execute "read !curl --silent ".l:url
 endfunction
 
+" Command to execute above function to search cheat.sh
 command -nargs=1 Cheat call Cheat(<f-args>)
 
 " ====== KEYBINDINGS =====
@@ -98,13 +99,8 @@ command -nargs=1 Cheat call Cheat(<f-args>)
 let mapleader = "\<Space>"
 
 " Markown/pandoc bindings
-command RenderPdf execute "!mkdir -p out && pandoc -d defaults.yml -o out/%:r.pdf %"
-command ViewPdf silent execute "!zathura out/%:r.pdf & disown"
-autocmd FileType markdown nnoremap <buffer> W :w<CR> :RenderPdf<CR><CR>
-
-" Python/ipynb bindings
-autocmd FileType python nnoremap <buffer> W :w<CR> :silent !qutebrowser :reload<CR> :redraw!<CR>
-autocmd FileType python nnoremap <buffer> <Leader>q :!python $(echo % \| sed 's/ipynb$/py/')<CR>
+command Render execute "!./render % %:r"
+autocmd FileType markdown nnoremap <buffer> W :Render<CR><CR>
 
 " Move around splits
 noremap <silent> <Leader><Right> <c-w>l
@@ -135,6 +131,7 @@ nnoremap <silent> <S-tab> :BufMRUPrev<CR>
 " Jump list
 nnoremap <silent> <Leader>v <C-i>
 nnoremap <silent> <Leader>b <C-o>
+
 
 " ====== PLUGINS (vim-plug) ======
 filetype plugin on
@@ -374,3 +371,8 @@ highlight link ALEInfo Todo
 
 " --- PLUGIN indentLine ---
 let g:indentLine_char = '|'
+
+
+" --- PLUGIN Vimspector ---
+let g:vimspector_enable_mappings = 'HUMAN'
+nnoremap <leader><F5> :call vimspector#Reset()<CR>

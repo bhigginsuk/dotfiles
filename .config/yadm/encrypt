@@ -11,3 +11,4 @@ bin/dwm-scripts/
 .config/khal/config
 .xinitrc##hostname.*
 .electrum/config
+.config/syncthing/config.xml

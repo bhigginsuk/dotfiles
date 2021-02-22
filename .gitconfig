@@ -1,5 +1,5 @@
 [alias]
-	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %aE %cE' --abbrev-commit
+	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pushall = !git remote | xargs -I {} git push {}
     cm = commit -m 
     ce = commit -m \"\" --allow-empty-message
