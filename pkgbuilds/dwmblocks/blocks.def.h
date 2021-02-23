@@ -3,7 +3,7 @@ static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
     {"", "checkupdates | wc -l | awk '{ print \"P: \"($1 > 0 ? $1 : \"✓\") }'", 3600, 0},
 
-    {"", "paru -Qua | wc -l | awk '{ print \"P: \"($1 > 0 ? $1 : \"✓\") }'", 3600, 0},
+    {"", "paru -Qua | wc -l | awk '{ print \"Y: \"($1 > 0 ? $1 : \"✓\") }'", 3600, 0},
 
     {"", "curl 'https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=GME' | jq .quoteResponse.result[0].ask | awk '{ print(\"GME: \"$1) }'", 900, 0},
 

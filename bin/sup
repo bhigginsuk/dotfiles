@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH=/opt/libyaml-0.2.4:$LD_LIBRARY_PATH
+/home/b/.gem/ruby/2.7.0/bin/sup
