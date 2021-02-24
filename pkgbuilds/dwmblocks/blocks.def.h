@@ -31,6 +31,8 @@ static const Block blocks[] = {
 
     {"", "systemctl --user show -p ActiveState --value ipfs | awk '{ print(\"I: \"(($1 == \"active\") ? \"✓\" : \"✗\")) }'", 60, 0},
 
+    {"", "systemctl --user show -p Result --value mbsync | awk '{ print(\"M: \"(($1 == \"success\") ? \"✓\" : \"✗\")) }'", 60, 0},
+
     {"", "date '+%g %V %u %H' | awk '{ w = $1$2; print(\"W\"w-2103\"/\"(($3 > 2 && $4 > 11) || ($3 > 3) ? w : w-1)); }'", 5, 0},
 
     {"", "date '+%a %Y-%m-%d %H:%M %Z'", 5, 0},
