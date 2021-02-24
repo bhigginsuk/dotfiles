@@ -11,9 +11,9 @@ static const Block blocks[] = {
     
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD' -H 'accept: application/json' | jq '.ethereum.usd' | awk '{ print(\"ETH: \"$1) }'", 900, 0},
 
-    {"", "curl -X GET 'https://ethgasstation.info/api/ethgasAPI.json' | jq '.safeLow' | awk '{ print($0/10\" Gwei\") }'", 900, 0},
-
     {"", "curl -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=maker&vs_currencies=USD' -H 'accept: application/json' | jq '.maker.usd' | awk '{ print(\"MKR: \"$1) }'", 900, 0},
+
+    {"", "curl -X GET 'https://ethgasstation.info/api/ethgasAPI.json' | jq '.safeLow' | awk '{ print(\"Gas: \"$0/10) }'", 900, 0},
 
     {"", "/usr/bin/protonvpn status | grep Server: | sed -E 's/Server: +//'", 30, 0},
 
