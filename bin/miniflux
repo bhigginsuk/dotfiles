@@ -8,7 +8,6 @@ export PGDATABASE=miniflux
 export PGPORT=5434
 export PGUSER=miniflux
 export PGPASSWORD=miniflux
-export PGDATABASE=miniflux
 export PGSSLMODE=disable
 
 # Miniflux settings
@@ -34,12 +33,6 @@ MINIFLUX_PID=$!
 # Wait for miniflux to be fully up before refreshing
 # Not sure how else to achieve this either
 sleep 1
-
-# Refresh the feeds
-/usr/bin/curl http://localhost:8081/feeds/refresh
-
-# Give a few seconds for feeds to refresh
-sleep 3
 
 # Browser
 /usr/bin/qutebrowser http://localhost:8081/unread --target window --basedir ~/.local/share/qutebrowser/miniflux

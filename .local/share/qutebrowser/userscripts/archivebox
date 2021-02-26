@@ -1,0 +1,3 @@
+#!/bin/sh
+export OUTPUT_DIR=/mnt/stuff/archivebox
+/usr/bin/archivebox add $QUTE_URL

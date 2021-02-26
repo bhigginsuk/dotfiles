@@ -19,3 +19,5 @@ config.bind("<Ctrl-m>", "spawn --userscript umpv {url}")
 config.bind("<Ctrl-Shift-m>", "hint links spawn --userscript umpv {hint-url}")
 c.aliases["zotero"] = "spawn --userscript zotero"
 c.aliases["Zotero"] = "hint links spawn --userscript zotero"
+c.aliases["archive"] = "spawn --userscript archivebox"
+c.aliases["Archive"] = "hint links spawn --userscript archivebox"
