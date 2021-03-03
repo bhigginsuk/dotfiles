@@ -372,7 +372,6 @@ highlight link ALEInfo Todo
 " --- PLUGIN indentLine ---
 let g:indentLine_char = '|'
 
-
 " --- PLUGIN Vimspector ---
 let g:vimspector_enable_mappings = 'HUMAN'
 nnoremap <leader><F5> :call vimspector#Reset()<CR>

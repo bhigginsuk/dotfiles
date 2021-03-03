@@ -4,10 +4,7 @@ set -e
 
 # Postgres settings
 export PGROOT=~/.local/share/miniflux
-export PGDATABASE=miniflux
 export PGPORT=5434
-export PGUSER=miniflux
-export PGPASSWORD=miniflux
 export PGSSLMODE=disable
 
 # Miniflux settings
