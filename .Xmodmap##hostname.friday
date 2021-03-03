@@ -1,0 +1,7 @@
+keycode 66 = Mode_switch
+keysym h = h H Left
+keysym n = n N Down
+keysym e = e E Up
+keysym i = i I Right
+keysym comma = comma less Home
+keysym period = period greater End
