@@ -1,7 +1,11 @@
 [Unit]
 Description=mbsync
+Requires=protonmail-bridge.service
+After=protonmail-bridge.service
 
 [Service]
 Type=oneshot
 Environment=GNUPGHOME=/home/b/sync/gnupghome
+# Give protonmail-bridge time to connect etc.
+ExecStartPre=/usr/bin/sleep 3
 ExecStart=/usr/bin/mbsync -Va
