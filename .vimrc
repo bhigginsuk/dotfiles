@@ -98,7 +98,7 @@ command -nargs=1 Cheat call Cheat(<f-args>)
 " Set leader
 let mapleader = "\<Space>"
 
-" Markown/pandoc bindings
+" Render current document
 command Render execute "!./render % %:r"
 autocmd FileType markdown nnoremap <buffer> W :Render<CR><CR>
 
@@ -108,11 +108,11 @@ noremap <silent> <Leader><Left> <c-w>h
 noremap <silent> <Leader><Up> <c-w>k
 noremap <silent> <Leader><Down> <c-w>j
 
-" Map Enter and Shift-Enter to insert newlines without entering edit mode
+" Insert newlines without entering edit mode
 nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 
-" Map move line up/down around
+" Moves line up/down around
 nnoremap <S-Up> :m .-2<CR>==
 nnoremap <S-Down> :m .+1<CR>==
 
@@ -131,7 +131,6 @@ nnoremap <silent> <S-tab> :BufMRUPrev<CR>
 " Jump list
 nnoremap <silent> <Leader>v <C-i>
 nnoremap <silent> <Leader>b <C-o>
-
 
 " ====== PLUGINS (vim-plug) ======
 filetype plugin on

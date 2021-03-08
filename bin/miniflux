@@ -9,7 +9,7 @@ export PGSSLMODE=disable
 
 # Miniflux settings
 export DATABASE_URL="host=/tmp port=5434 user=miniflux dbname=miniflux sslmode=disable"
-export LISTEN_ADDR="127.0.0.1:8081"
+export LISTEN_ADDR="127.0.0.1:8089"
 
 # Extract database from archive
 /usr/bin/tar -xvf ~/sync/miniflux.tar.gz -C $PGROOT --overwrite
@@ -32,7 +32,7 @@ MINIFLUX_PID=$!
 sleep 1
 
 # Browser
-/usr/bin/qutebrowser http://localhost:8081/unread --target window --basedir ~/.local/share/qutebrowser/miniflux
+/usr/bin/qutebrowser $LISTEN_ADDR/unread --target window --basedir ~/.local/share/qutebrowser/miniflux
 
 # Shutdown miniflux
 kill -INT $MINIFLUX_PID

@@ -12,3 +12,5 @@ bin/dwm-scripts/
 .xinitrc##hostname.*
 .electrum/config
 .config/syncthing/config.xml
+.config/backuper/borgmatic/config.yaml
+bin/backuper/bin/notify

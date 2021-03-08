@@ -55,7 +55,7 @@ index 3b35fad..9e5e88d 100644
 +static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
  static const char *termcmd[]  = { "st", NULL };
 +static const char *qutebrowsercmd[] = { "/usr/bin/qutebrowser", NULL };
-+static const char *ankicmd[]  = { "/home/b/bin/anki", NULL };
++static const char *ankicmd[]  = { "/usr/bin/anki", NULL };
 +static const char *flameshotcmd[] = { "/usr/bin/flameshot", "gui", NULL };
 +static const char *togglekeyboardcmd[] = { "/home/b/bin/toggle-internal-keyboard.sh", NULL };
 +static const char *vifmcmd[] = { "/usr/local/bin/st", "-e", "/usr/bin/vifmrun", NULL };

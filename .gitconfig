@@ -5,9 +5,7 @@
     ce = commit -m \"\" --allow-empty-message
     ca = commit --amend --no-edit --allow-empty-message
     s = status
-    f = fetch
-    r = reset
-    ch = checkout
+    pa = pushall
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
 [credential]
 	helper = store
