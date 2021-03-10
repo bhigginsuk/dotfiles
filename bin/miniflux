@@ -2,6 +2,36 @@
 
 set -e
 
+kill_miniflux () {
+    if [ $MINIFLUX_PID ]
+    then
+        echo "Killing miniflux"
+        kill -INT $MINIFLUX_PID
+        wait $MINIFLUX_PID
+        unset MINIFLUX_PID
+    fi
+}
+
+kill_postgres () {
+    if [ $PG_PID ]
+    then
+        echo "Killing postgres"
+        kill -INT $PG_PID
+        wait $PG_PID
+        unset PG_PID
+    fi
+}
+
+cleanup () {
+    ARG=$?
+    
+    kill_miniflux
+    kill_postgres
+
+    exit $ARG
+}
+trap cleanup EXIT
+
 # Postgres settings
 export PGROOT=~/.local/share/miniflux
 export PGPORT=5434
@@ -11,10 +41,12 @@ export PGSSLMODE=disable
 export DATABASE_URL="host=/tmp port=5434 user=miniflux dbname=miniflux sslmode=disable"
 export LISTEN_ADDR="127.0.0.1:8089"
 
-# Extract database from archive
-/usr/bin/tar -xvf ~/sync/miniflux.tar.gz -C $PGROOT --overwrite
+# Misc settings
+export DUMP_DIR=~/miniflux
+export DUMP_FILE=dump
+export DUMP_LOC="$DUMP_DIR/$DUMP_FILE"
 
-# Launch postgres
+echo "Launching postgres"
 /usr/bin/postgresql-check-db-dir $PGROOT
 /usr/bin/postgres -D $PGROOT &
 PG_PID=$!
@@ -23,7 +55,10 @@ PG_PID=$!
 # Not sure how else to achieve this!
 sleep 1
 
-# Launch miniflux
+echo "Importing dump"
+/usr/bin/psql -h /tmp -p $PGPORT miniflux < $DUMP_LOC
+
+echo "Launching miniflux"
 /usr/bin/miniflux &
 MINIFLUX_PID=$!
 
@@ -31,19 +66,20 @@ MINIFLUX_PID=$!
 # Not sure how else to achieve this either
 sleep 1
 
-# Browser
+echo "Launching browser"
 /usr/bin/qutebrowser $LISTEN_ADDR/unread --target window --basedir ~/.local/share/qutebrowser/miniflux
 
 # Shutdown miniflux
-kill -INT $MINIFLUX_PID
-wait $MINIFLUX_PID
+kill_miniflux
+
+echo "Dumping database"
+/usr/bin/pg_dump -h /tmp -p 5434 --clean miniflux > $DUMP_LOC
 
 # Shutdown postgres
-kill -INT $PG_PID
-wait $PG_PID
+kill_postgres
 
-# Trash the old archive
-/usr/bin/trash-put ~/sync/miniflux.tar.gz
-
-# Re-archive the database
-/usr/bin/tar -zcvf ~/sync/miniflux.tar.gz -C $PGROOT .
+echo "Committing dump file to git"
+cd $DUMP_DIR
+/usr/bin/git add $DUMP_FILE
+/usr/bin/git commit -m "" --allow-empty-message
+/usr/bin/git pushall 2>/dev/null

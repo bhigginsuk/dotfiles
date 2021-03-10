@@ -1,5 +1,5 @@
 diff --git a/config.def.h.~4~ b/config.def.h
-index 3b35fad..9e5e88d 100644
+index 3b35fad..23d16d7 100644
 --- a/config.def.h.~4~
 +++ b/config.def.h
 @@ -1,12 +1,15 @@
@@ -47,7 +47,7 @@ index 3b35fad..9e5e88d 100644
  };
  
  /* key definitions */
-@@ -58,35 +61,50 @@ static const Layout layouts[] = {
+@@ -58,35 +61,51 @@ static const Layout layouts[] = {
  
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -65,6 +65,7 @@ index 3b35fad..9e5e88d 100644
 +static const char *volmute[] = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", NULL };
 +static const char *brightnessup[] = { "/usr/bin/sudo", "/usr/bin/light", "-A", "10", NULL };
 +static const char *brightnessdown[] = { "/usr/bin/sudo", "/usr/bin/light", "-U", "10", NULL };
++static const char *ejectdisks[] = { "/usr/bin/udiskie-umount", "-ade", NULL };
  
 -#include "movestack.c"
  static Key keys[] = {
@@ -119,7 +120,7 @@ index 3b35fad..9e5e88d 100644
  	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
  	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
  	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-@@ -102,7 +120,15 @@ static Key keys[] = {
+@@ -102,7 +121,16 @@ static Key keys[] = {
  	TAGKEYS(                        XK_7,                      6)
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
@@ -131,6 +132,7 @@ index 3b35fad..9e5e88d 100644
 +	{ 0,                            0x1008ff47,spawn,          {.v = keepasscmd } },
 +	{ 0,                            XK_Print,  spawn,          {.v = flameshotcmd } },
 +	{ ControlMask,                  XK_Print,  spawn,          {.v = togglekeyboardcmd } },
++    { ShiftMask,                    XK_Print,  spawn,          {.v = ejectdisks } },
 +    { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = vifmcmd } },
 +	{ MODKEY,                       XK_BackSpace,focusmaster,   {.i = -1 } },
  };
