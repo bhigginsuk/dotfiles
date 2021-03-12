@@ -4,7 +4,7 @@
     cm = commit -m 
     ce = commit -m \"\" --allow-empty-message
     ca = commit --amend --no-edit --allow-empty-message
-    yfd = !yadm fetch && yadm decrypt
+    ypd = !yadm pull && yadm decrypt
     yea = !yadm encrypt && yadm add ~/.local/share/yadm/archive
     yce = !yadm yea && yadm ce
     yca = !yadm yea && yadm ca

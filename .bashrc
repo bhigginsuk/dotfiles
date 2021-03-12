@@ -107,6 +107,9 @@ shopt -s histappend
 
 # Custom settings (above is mostly Manjaro default)
 source /usr/share/git/completion/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
 export PS1="\[\e[01;32m\][\[\e[m\]\[\e[01;39m\]\t\[\e[m\] \[\e[01;32m\]\u\[\e[m\] \[\e[01;34m\]\W\[\e[m\]\[\e[01;31m\]\$(__git_ps1 \" (%s)\")\[\e[m\]\[\e[01;32m\]]\[\e[m\]\\n\\$ "
 export GNUPGHOME=~/sync/gnupghome/
 export VISUAL=vim
