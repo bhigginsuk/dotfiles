@@ -13,4 +13,5 @@ bin/dwm-scripts/
 .electrum/config
 .config/syncthing/config.xml
 .config/backuper/borgmatic/config.yaml
+.config/qutebrowser/config.py
 bin/backuper/bin/notify

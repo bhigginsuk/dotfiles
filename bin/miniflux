@@ -12,71 +12,35 @@ kill_miniflux () {
     fi
 }
 
-kill_postgres () {
-    if [ $PG_PID ]
-    then
-        echo "Killing postgres"
-        kill -INT $PG_PID
-        wait $PG_PID
-        unset PG_PID
-    fi
-}
-
 cleanup () {
     ARG=$?
     
     kill_miniflux
-    kill_postgres
 
     exit $ARG
 }
 trap cleanup EXIT
 
-# Postgres settings
-export PGROOT=~/.local/share/miniflux
-export PGPORT=5434
-export PGSSLMODE=disable
-
-# Miniflux settings
-export DATABASE_URL="host=/tmp port=5434 user=miniflux dbname=miniflux sslmode=disable"
-export LISTEN_ADDR="127.0.0.1:8089"
-
 # Misc settings
+export DB_NAME=miniflux2
 export DUMP_DIR=~/miniflux
 export DUMP_FILE=dump
 export DUMP_LOC="$DUMP_DIR/$DUMP_FILE"
 
-echo "Launching postgres"
-/usr/bin/postgresql-check-db-dir $PGROOT
-/usr/bin/postgres -D $PGROOT &
-PG_PID=$!
-
-# Wait for postgres to be fully up before starting miniflux
-# Not sure how else to achieve this!
-sleep 1
-
 echo "Importing dump"
-/usr/bin/psql -h /tmp -p $PGPORT miniflux < $DUMP_LOC
+/usr/bin/psql -U postgres $DB_NAME < $DUMP_LOC
 
 echo "Launching miniflux"
 /usr/bin/miniflux &
 MINIFLUX_PID=$!
 
-# Wait for miniflux to be fully up before refreshing
-# Not sure how else to achieve this either
-sleep 1
-
 echo "Launching browser"
-/usr/bin/qutebrowser $LISTEN_ADDR/unread --target window --basedir ~/.local/share/qutebrowser/miniflux
+/usr/bin/qutebrowser 127.0.0.1:8080/unread --target window --basedir ~/.local/share/qutebrowser/miniflux
 
-# Shutdown miniflux
 kill_miniflux
 
 echo "Dumping database"
-/usr/bin/pg_dump -h /tmp -p 5434 --clean miniflux > $DUMP_LOC
-
-# Shutdown postgres
-kill_postgres
+/usr/bin/pg_dump -U postgres --clean $DB_NAME > $DUMP_LOC
 
 echo "Committing dump file to git"
 cd $DUMP_DIR
